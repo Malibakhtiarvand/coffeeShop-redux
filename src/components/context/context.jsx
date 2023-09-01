@@ -4,4 +4,7 @@ export const ContextPR = createContext({
   count: 0,
   prs: [],
   selectedPRs: [],
+  showCardDialog: false,
+  changeShow: () => {},
+  setSelectedPrs: () => {},
 });

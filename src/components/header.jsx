@@ -4,12 +4,12 @@ import { ContextPR } from "./context/context";
 
 export default function Header() {
   const badgeClass = "badge bg-warning " + css.countCard;
-  const { count } = useContext(ContextPR);
+  const { count, changeShow } = useContext(ContextPR);
 
   return (
     <header className={css.header} style={{ backgroundColor: "#E3EAE8" }}>
       <p>رستوران من</p>
-      <div>
+      <div onClick={changeShow}>
         <i
           className="fa fa-shopping-bag text-success"
           style={{ fontSize: "30pt" }}

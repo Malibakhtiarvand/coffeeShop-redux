@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import CardDialog from "./components/cardDialog";
 import { ContextPR } from "./components/context/context";
 import Header from "./components/header";
 import Main from "./components/main";
@@ -9,6 +10,7 @@ class App extends Component {
     prs: [],
     selectedPrs: [],
     count: 0,
+    showDialog: false,
   };
 
   addToCard = (pr) => {
@@ -26,6 +28,10 @@ class App extends Component {
     this.setState({ selectedPrs: prsSelected, count: count });
   };
 
+  cardDialogShow = () => {
+    this.setState({ showDialog: !this.state.showDialog });
+  };
+
   componentDidMount() {
     const fetching = async () => {
       const { data } = await getsHttpMethod();
@@ -39,9 +45,13 @@ class App extends Component {
         value={{
           prs: this.state.prs,
           count: this.state.count,
-          selectedPRs: this.addToCard,
+          selectedPRs: this.state.selectedPrs,
+          showCardDialog: this.state.showDialog,
+          setSelectedPrs: this.addToCard,
+          changeShow: this.cardDialogShow,
         }}
       >
+        <CardDialog />
         <Header />
         <Main />
       </ContextPR.Provider>

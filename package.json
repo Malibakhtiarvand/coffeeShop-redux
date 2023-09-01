@@ -9,6 +9,7 @@
         "@mui/lab": "^5.0.0-alpha.139",
         "@mui/material": "^5.14.4",
         "@popperjs/core": "^2.11.8",
+        "@reach/dialog": "^0.18.0",
         "@reduxjs/toolkit": "^1.9.5",
         "@testing-library/jest-dom": "^5.16.5",
         "@testing-library/react": "^13.3.0",

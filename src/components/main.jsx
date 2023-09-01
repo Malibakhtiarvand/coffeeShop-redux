@@ -1,16 +1,15 @@
 import { memo, useContext, useRef } from "react";
 import { ContextPR } from "./context/context";
 
-function ShowPr({ index, selectedPRs }) {
+function ShowPr({ index, setSelectedPrs }) {
   const ref = useRef(null);
-  console.log(1);
 
   return (
     <div
       className="mt-5 col-xl-3 col-md-4 col-sm-6 col-12 pt-2"
       onClick={() => {
         ref.current.style.backgroundColor = "#B0FF67";
-        selectedPRs(index);
+        setSelectedPrs(index);
       }}
     >
       <div className="card" ref={ref}>
@@ -37,12 +36,12 @@ function ShowPr({ index, selectedPRs }) {
 ShowPr = memo(ShowPr)
 
 export default function Main() {
-  const { prs, selectedPRs } = useContext(ContextPR);
+  const { prs, setSelectedPrs } = useContext(ContextPR);
 
   return (
     <div className="row container m-auto">
       {prs.map((index) => (
-        <ShowPr selectedPRs={selectedPRs} key={index.id} index={index} />
+        <ShowPr setSelectedPrs={setSelectedPrs} key={index.id} index={index} />
       ))}
     </div>
   );
