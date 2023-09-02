@@ -1,6 +1,5 @@
-import { memo, useContext, useRef } from "react";
+import { memo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ContextPR } from "./context/context";
 import { addToSelectedList } from "./redux/slice";
 
 function ShowPr({ index }) {
@@ -39,14 +38,14 @@ function ShowPr({ index }) {
 ShowPr = memo(ShowPr);
 
 export default function Main() {
-  const { setSelectedPrs } = useContext(ContextPR);
   const prsReducer = useSelector((state) => state.prsReducer);
 
   return (
     <div className="row container m-auto">
       {prsReducer.map((index) => (
-        <ShowPr setSelectedPrs={setSelectedPrs} key={index.id} index={index} />
+        <ShowPr key={index.id} index={index} />
       ))}
     </div>
   );
 }
+

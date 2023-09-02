@@ -1,4 +1,4 @@
-import { configureStore, createSlice, current } from "@reduxjs/toolkit";
+import { configureStore, createSlice } from "@reduxjs/toolkit";
 import { getsHttpMethod } from "../../services/httpMethods";
 
 const PrsSlice = createSlice({
@@ -20,7 +20,7 @@ const selectPrSlice = createSlice({
   },
   reducers: {
     addToSelectedList: (state, action) => {
-      var old = state.prs.find((x) => x.id == action.payload.id);
+      var old = state.prs.find((x) => x.id === action.payload.id);
       if (old) {
         old["count"]++;
       } else {
@@ -31,7 +31,7 @@ const selectPrSlice = createSlice({
       return state;
     },
     decrement: (state, action) => {
-      var old = state.prs.find((x) => x.id == action.payload.id);
+      var old = state.prs.find((x) => x.id === action.payload.id);
       old["count"]--;
       state.count--;
       return state;

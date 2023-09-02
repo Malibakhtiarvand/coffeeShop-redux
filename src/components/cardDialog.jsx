@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { memo, useContext, useState } from "react";
 import { Dialog } from "@reach/dialog";
 import "@reach/dialog/styles.css";
 import { ContextPR } from "./context/context";
@@ -9,7 +9,6 @@ import { addToSelectedList, decrement, deletePr } from "./redux/slice";
 export default function CardDialog() {
   const { showCardDialog, changeShow } = useContext(ContextPR);
   const { prs } = useSelector((state) => state.selectPrReducer);
-  const dispatch = useDispatch();
 
   return createPortal(
     <Dialog isOpen={showCardDialog} onDismiss={changeShow}>
@@ -31,48 +30,7 @@ export default function CardDialog() {
         </thead>
         <tbody>
           {prs.map((index) => (
-            <tr style={{borderTop: "1px black solid"}} className="mt-5" key={index.id}>
-              <td>
-                <img
-                  style={{ height: 40, width: 40 }}
-                  src={index.productUrl}
-                  alt={index.productName}
-                />
-              </td>
-              <td>{index.productName}</td>
-              <td
-                className="d-flex justify-content-center align-items-center"
-                style={{ columnGap: 10 }}
-              >
-                <button
-                  className="btn btn-primary"
-                  onClick={() => {
-                    dispatch(addToSelectedList(index));
-                  }}
-                >
-                  +
-                </button>
-                <div>
-                  <p>{index.count}</p>
-                  <button
-                    onClick={() => {
-                      dispatch(deletePr(index));
-                    }}
-                    className="btn btn-warning"
-                  >
-                    حذف
-                  </button>
-                </div>
-                <button
-                  className="btn btn-danger"
-                  onClick={() => {
-                    if (index.count > 0) dispatch(decrement(index));
-                  }}
-                >
-                  -
-                </button>
-              </td>
-            </tr>
+            <MakeTD key={index.id} index={index} />
           ))}
         </tbody>
       </table>
@@ -91,3 +49,54 @@ export default function CardDialog() {
     document.getElementById("CardDialog")
   );
 }
+
+var MakeTD = ({ index }) => {
+  console.log("MakeTD");
+  const dispatch = useDispatch();
+
+  return (
+    <tr style={{ borderTop: "1px black solid" }} className="mt-5">
+      <td>
+        <img
+          style={{ height: 40, width: 40 }}
+          src={index.productUrl}
+          alt={index.productName}
+        />
+      </td>
+      <td>{index.productName}</td>
+      <td
+        className="d-flex justify-content-center align-items-center"
+        style={{ columnGap: 10 }}
+      >
+        <button
+          className="btn btn-primary"
+          onClick={() => {
+            dispatch(addToSelectedList(index));
+          }}
+        >
+          +
+        </button>
+        <div>
+          <p>{index.count}</p>
+          <button
+            onClick={() => {
+              dispatch(deletePr(index));
+            }}
+            className="btn btn-warning"
+          >
+            حذف
+          </button>
+        </div>
+        <button
+          className="btn btn-danger"
+          onClick={() => {
+            if (index.count > 0) dispatch(decrement(index));
+          }}
+        >
+          -
+        </button>
+      </td>
+    </tr>
+  );
+};
+MakeTD = memo(MakeTD)
