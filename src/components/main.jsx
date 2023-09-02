@@ -1,18 +1,21 @@
 import { memo, useContext, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { ContextPR } from "./context/context";
+import { addToSelectedList } from "./redux/slice";
 
-function ShowPr({ index, setSelectedPrs }) {
+function ShowPr({ index }) {
   const ref = useRef(null);
+  const dispatch = useDispatch();
 
   return (
     <div
       className="mt-5 col-xl-3 col-md-4 col-sm-6 col-12 pt-2"
       onClick={() => {
         ref.current.style.backgroundColor = "#B0FF67";
-        setSelectedPrs(index);
+        dispatch(addToSelectedList(index));
       }}
     >
-      <div className="card" ref={ref}>
+      <div className="card" id={"pr_" + index} ref={ref}>
         <img
           src={index.productUrl}
           className="card-img"
@@ -33,14 +36,15 @@ function ShowPr({ index, setSelectedPrs }) {
   );
 }
 
-ShowPr = memo(ShowPr)
+ShowPr = memo(ShowPr);
 
 export default function Main() {
-  const { prs, setSelectedPrs } = useContext(ContextPR);
+  const { setSelectedPrs } = useContext(ContextPR);
+  const prsReducer = useSelector((state) => state.prsReducer);
 
   return (
     <div className="row container m-auto">
-      {prs.map((index) => (
+      {prsReducer.map((index) => (
         <ShowPr setSelectedPrs={setSelectedPrs} key={index.id} index={index} />
       ))}
     </div>

@@ -3,9 +3,13 @@ import { Dialog } from "@reach/dialog";
 import "@reach/dialog/styles.css";
 import { ContextPR } from "./context/context";
 import { createPortal } from "react-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addToSelectedList, decrement, deletePr } from "./redux/slice";
 
 export default function CardDialog() {
-  const { showCardDialog, changeShow, selectedPRs } = useContext(ContextPR);
+  const { showCardDialog, changeShow } = useContext(ContextPR);
+  const { prs } = useSelector((state) => state.selectPrReducer);
+  const dispatch = useDispatch();
 
   return createPortal(
     <Dialog isOpen={showCardDialog} onDismiss={changeShow}>
@@ -26,8 +30,8 @@ export default function CardDialog() {
           </tr>
         </thead>
         <tbody>
-          {selectedPRs.map((index) => (
-            <tr key={index.id}>
+          {prs.map((index) => (
+            <tr style={{borderTop: "1px black solid"}} className="mt-5" key={index.id}>
               <td>
                 <img
                   style={{ height: 40, width: 40 }}
@@ -36,7 +40,38 @@ export default function CardDialog() {
                 />
               </td>
               <td>{index.productName}</td>
-              <td>{index.count}</td>
+              <td
+                className="d-flex justify-content-center align-items-center"
+                style={{ columnGap: 10 }}
+              >
+                <button
+                  className="btn btn-primary"
+                  onClick={() => {
+                    dispatch(addToSelectedList(index));
+                  }}
+                >
+                  +
+                </button>
+                <div>
+                  <p>{index.count}</p>
+                  <button
+                    onClick={() => {
+                      dispatch(deletePr(index));
+                    }}
+                    className="btn btn-warning"
+                  >
+                    حذف
+                  </button>
+                </div>
+                <button
+                  className="btn btn-danger"
+                  onClick={() => {
+                    if (index.count > 0) dispatch(decrement(index));
+                  }}
+                >
+                  -
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>

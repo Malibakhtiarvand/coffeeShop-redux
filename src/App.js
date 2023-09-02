@@ -31,14 +31,7 @@ class App extends Component {
   cardDialogShow = () => {
     this.setState({ showDialog: !this.state.showDialog });
   };
-
-  componentDidMount() {
-    const fetching = async () => {
-      const { data } = await getsHttpMethod();
-      this.setState({ prs: data });
-    };
-    fetching();
-  }
+  
   render() {
     return (
       <ContextPR.Provider

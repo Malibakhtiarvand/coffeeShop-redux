@@ -1,10 +1,12 @@
 import { useContext } from "react";
+import { useSelector } from "react-redux";
 import css from "../assets/header.module.css";
 import { ContextPR } from "./context/context";
 
 export default function Header() {
   const badgeClass = "badge bg-warning " + css.countCard;
-  const { count, changeShow } = useContext(ContextPR);
+  const { changeShow } = useContext(ContextPR);
+  const { count } = useSelector((state) => state.selectPrReducer);
 
   return (
     <header className={css.header} style={{ backgroundColor: "#E3EAE8" }}>
