@@ -1,6 +1,7 @@
 import { memo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToSelectedList } from "./redux/slice";
+import { NumericFormat } from "react-number-format";
 
 function ShowPr({ index }) {
   const ref = useRef(null);
@@ -24,9 +25,22 @@ function ShowPr({ index }) {
         <div className="card-body mt-1 text-center">
           <p>{index.productName}</p>
           <div>
-            <del className="text-danger">{index.price} تومان</del>
-            <p className="text-primary">
-              {(index.price * (100 - index.Discount)) / 100} تومان
+            <del className="text-danger">
+              <NumericFormat
+                value={(index.price * (100 - index.Discount)) / 100}
+                thousandSeparator=","
+                displayType="text"
+              />
+              تومان
+            </del>{" "}
+            <br />
+            <p>
+              <NumericFormat
+                value={(index.price * (100 - index.Discount)) / 100}
+                thousandSeparator=","
+                displayType="text"
+              />
+              تومان
             </p>
           </div>
         </div>
@@ -48,4 +62,3 @@ export default function Main() {
     </div>
   );
 }
-

@@ -1,10 +1,11 @@
-import { memo, useContext, useState } from "react";
+import { memo, useContext } from "react";
 import { Dialog } from "@reach/dialog";
 import "@reach/dialog/styles.css";
 import { ContextPR } from "./context/context";
 import { createPortal } from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToSelectedList, decrement, deletePr } from "./redux/slice";
+import { NumericFormat } from "react-number-format";
 
 export default function CardDialog() {
   const { showCardDialog, changeShow } = useContext(ContextPR);
@@ -24,8 +25,9 @@ export default function CardDialog() {
         <thead>
           <tr>
             <th>عکس</th>
-            <th>نام</th>
+            <th id="namesInTbl">نام</th>
             <th>تعداد</th>
+            <th>قیمت</th>
           </tr>
         </thead>
         <tbody>
@@ -63,7 +65,7 @@ var MakeTD = ({ index }) => {
           alt={index.productName}
         />
       </td>
-      <td>{index.productName}</td>
+      <td className="prsForTblName">{index.productName}</td>
       <td
         className="d-flex justify-content-center align-items-center"
         style={{ columnGap: 10 }}
@@ -73,6 +75,7 @@ var MakeTD = ({ index }) => {
           onClick={() => {
             dispatch(addToSelectedList(index));
           }}
+          style={{height: 30,width: 30,display: "flex",alignItems: "center",justifyContent: "center"}}
         >
           +
         </button>
@@ -83,6 +86,7 @@ var MakeTD = ({ index }) => {
               dispatch(deletePr(index));
             }}
             className="btn btn-warning"
+            style={{height: 35,width: 35,display: "flex",alignItems: "center",justifyContent: "center"}}
           >
             حذف
           </button>
@@ -92,11 +96,19 @@ var MakeTD = ({ index }) => {
           onClick={() => {
             if (index.count > 0) dispatch(decrement(index));
           }}
+          style={{height: 30,width: 30,display: "flex",alignItems: "center",justifyContent: "center"}}
         >
           -
         </button>
       </td>
+      <td>
+        <NumericFormat
+          value={((index.price * (100 - index.Discount)) / 100) * index.count}
+          thousandSeparator=","
+          displayType="text"
+        />
+      </td>
     </tr>
   );
 };
-MakeTD = memo(MakeTD)
+MakeTD = memo(MakeTD);
