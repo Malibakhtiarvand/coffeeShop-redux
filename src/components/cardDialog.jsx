@@ -45,6 +45,7 @@ export default function CardDialog() {
           src="https://icons.iconarchive.com/icons/iconshock/real-vista-business/48/shopping-cart-icon.png"
           width="48"
           height="48"
+          alt="card button"
         />
       </button>
     </Dialog>,

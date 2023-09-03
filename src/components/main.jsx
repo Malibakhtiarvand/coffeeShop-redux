@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToSelectedList } from "./redux/slice";
 import { NumericFormat } from "react-number-format";
 
-function ShowPr({ index }) {
+const ShowPr = memo(({ index }) => {
   const ref = useRef(null);
   const dispatch = useDispatch();
 
@@ -47,9 +47,7 @@ function ShowPr({ index }) {
       </div>
     </div>
   );
-}
-
-ShowPr = memo(ShowPr);
+});
 
 export default function Main() {
   const prsReducer = useSelector((state) => state.prsReducer);
