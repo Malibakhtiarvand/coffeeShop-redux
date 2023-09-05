@@ -19,7 +19,7 @@ export default function Header() {
   return (
     <header
       className={css.header}
-      style={{ backgroundColor: "rgb(36, 88, 109)" }}
+      style={{ borderBottom: "1px gray solid"}}
     >
       <img src={rice} alt="" />
       <div onClick={changeShow}>

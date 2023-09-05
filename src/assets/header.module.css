@@ -4,6 +4,9 @@
   align-items: center;
   padding: 10px;
   height: 80px;
+  border-bottom: 1px solid gray;
+  background-color: aliceblue;
+  box-shadow: 1px 1px 23px 1px gray;
 }
 
 .countCard {
