@@ -15,7 +15,7 @@ const ShowPr = memo(({ index }) => {
         dispatch(addToSelectedList(index));
       }}
     >
-      <div className="card" id={"pr_" + index} ref={ref}>
+      <div className="card" id={"pr_" + index.id} ref={ref} style={{backgroundColor: "#097e8b"}}>
         <img
           src={index.productUrl}
           className="card-img"
